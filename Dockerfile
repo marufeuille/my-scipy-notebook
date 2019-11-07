@@ -3,6 +3,10 @@ FROM $BASE_CONTAINER
 
 LABEL maintainer="Masahiro Ishii <marufeuille@gmail.com>"
 
+ARG NB_USER="jovyan"
+ARG NB_UID="1000"
+ARG NB_GID="100"
+
 USER root
 
 RUN apt-get update && \
@@ -17,3 +21,6 @@ RUN conda install --quiet --yes pydotplus \
 RUN pip install japanize_matplotlib
 
 USER $NB_UID
+
+COPY startup.sh /usr/local/bin/
+CMD ["startup.sh"]
